@@ -9,7 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 
-@Document(collection = "user")
+@Document(collection = "users")
 public class AdminUser implements UserDetails {
     private String password;
 

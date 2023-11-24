@@ -1,15 +1,19 @@
 package com.zahaab.server.dto;
 
-public class LoginReqBody {
+import jakarta.validation.constraints.NotEmpty;
+
+public class LoginReqBodyDto {
+    @NotEmpty
     private String password;
+    @NotEmpty
     private String username;
 
-    public LoginReqBody(String password, String username) {
+    public LoginReqBodyDto(String password, String username) {
         this.password = password;
         this.username = username;
     }
 
-    public LoginReqBody() {}
+    public LoginReqBodyDto() {}
 
     public String getPassword() {
         return password;

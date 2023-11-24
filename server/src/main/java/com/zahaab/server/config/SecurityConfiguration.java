@@ -1,11 +1,9 @@
 package com.zahaab.server.config;
 
-import jakarta.servlet.Filter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -27,7 +25,7 @@ public class SecurityConfiguration {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((authorize) -> authorize
-                        .requestMatchers("/healthcheck", "/auth/**", "/movies/**")
+                        .requestMatchers("/healthcheck", "/auth/**", "/movies/**", "v2/api-docs")
                         .permitAll()
                         .anyRequest()
                         .authenticated())

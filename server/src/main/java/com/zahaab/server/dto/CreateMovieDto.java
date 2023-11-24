@@ -1,17 +1,25 @@
-package com.zahaab.server.model;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+package com.zahaab.server.dto;
 
-@Document(collection = "movies")
-public class Movie {
-    @Id
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+
+public class CreateMovieDto {
+    @NotEmpty(message = "Name cannot be empty")
     private String name;
+    @NotEmpty(message = "Image cannot be empty")
     private String base64Image;
+    @NotEmpty(message = "Description cannot be empty")
     private String description;
+    @NotEmpty(message = "Genre cannot be empty")
     private String genre;
+    @NotNull(message = "Rating cannot be empty")
+    @Max(value = 5, message = "Rating cannot be more than 5.0")
+    @Min(value = 0, message = "Rating cannot be less than 0.0")
     private double rating;
 
-    public Movie(String name, String base64Image, String description, String genre, double rating) {
+    public CreateMovieDto(String name, String base64Image, String description, String genre, double rating) {
         this.name = name;
         this.base64Image = base64Image;
         this.description = description;
@@ -19,7 +27,7 @@ public class Movie {
         this.rating = rating;
     }
 
-    Movie() {}
+    public CreateMovieDto() {}
 
     public String getName() {
         return name;
@@ -45,14 +53,6 @@ public class Movie {
         this.description = description;
     }
 
-    public double getRating() {
-        return rating;
-    }
-
-    public void setRating(double rating) {
-        this.rating = rating;
-    }
-
     public String getGenre() {
         return genre;
     }
@@ -61,9 +61,17 @@ public class Movie {
         this.genre = genre;
     }
 
+    public double getRating() {
+        return rating;
+    }
+
+    public void setRating(double rating) {
+        this.rating = rating;
+    }
+
     @Override
     public String toString() {
-        return "Movie{" +
+        return "CreateMovieDto{" +
                 "name='" + name + '\'' +
                 ", base64Image='" + base64Image + '\'' +
                 ", description='" + description + '\'' +
