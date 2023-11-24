@@ -9,11 +9,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/admin")
-public class AdminController {
+@RequestMapping("/auth")
+public class AuthController {
+    @Autowired
+    AdminUserService adminUserService;
 
-    @GetMapping("/test")
-    public String test() {
-        return "test worked!";
+    @GetMapping("/login")
+    public String login(@RequestBody LoginReqBody loginReqBody) {
+        return adminUserService.login(loginReqBody);
     }
 }
