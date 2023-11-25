@@ -83,4 +83,8 @@ public class AdminUserService {
 
         return jwtService.generateToken(user);
     }
+
+    public String getUserByToken(String token) {
+        return jwtService.extractUsername(token.substring(7));
+    }
 }

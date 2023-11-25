@@ -10,6 +10,7 @@ import com.zahaab.server.service.AdminUserService;
 import com.zahaab.server.service.MovieService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.aggregation.ArithmeticOperators;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,8 +24,10 @@ public class AdminController {
     @Autowired
     private MovieService movieService;
 
-    @GetMapping("/verify")
-    public void test() {}
+    @GetMapping("/verify-token")
+    public String getUsernameFromToken(@RequestHeader("Authorization") String token) {
+        return adminUserService.getUserByToken(token);
+    }
 
     @PostMapping("/create-admin-user")
     public String createAdminUser(@RequestBody @Valid CreateAdminUserDto createAdminUserDto) throws AdminUserAlreadyExistsException {
