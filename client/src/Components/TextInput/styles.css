@@ -1,0 +1,30 @@
+/* styles.css */
+
+input {
+    border-radius: 5px;
+    outline: none;
+    border: 1px var(--main-border-color) solid;
+    background-color: var(--main-bg-color);
+    padding: 10px;
+    width: 250px;
+    height: 25px;
+    color: var(--logo-white);
+}
+
+input:focus::placeholder {
+    color: var(--logo-yellow); /* Change placeholder text color to var(--logo-blue) on focus */
+}
+
+.password-toggle-button {
+    position: absolute !important;
+    transform: translateX(-100%) translateY(34%) !important;
+    background: none !important;
+    border: none !important;
+    cursor: pointer !important;
+    color: white !important;
+}
+
+input:focus {
+    border-color: var(--logo-yellow);
+    color: var(--logo-yellow);
+}

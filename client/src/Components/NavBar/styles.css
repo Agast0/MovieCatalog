@@ -1,0 +1,28 @@
+.nav-bar {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid var(--main-border-color);
+    background-color: var(--secondary-bg-color);
+}
+
+.movie-catalog-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.movie-icon {
+    color: var(--logo-yellow);
+    font-size: 30px;
+    margin-right: 10px;
+}
+
+.movie-text {
+    color: var(--logo-white);
+    font-size: 20px;
+    font-weight: bold;
+}

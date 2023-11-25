@@ -5,12 +5,12 @@ import com.zahaab.server.dto.CreateMovieDto;
 import com.zahaab.server.dto.CreateMoviesDto;
 import com.zahaab.server.dto.UpdateMovieDto;
 import com.zahaab.server.exceptions.*;
+import com.zahaab.server.model.AdminUser;
 import com.zahaab.server.model.Movie;
 import com.zahaab.server.service.AdminUserService;
 import com.zahaab.server.service.MovieService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.aggregation.ArithmeticOperators;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,6 +34,11 @@ public class AdminController {
         return adminUserService.createAdminUser(createAdminUserDto);
     }
 
+    @GetMapping("/all-admin-users")
+    public List<AdminUser> getAllAdminUsers() {
+        return adminUserService.getAllAdminUsers();
+    }
+
     @DeleteMapping("/delete-admin-user")
     public String deleteAdminUser(@RequestParam(value = "username") String username) throws CannotDeleteDefaultAdminUserException, UserDoesNotExistException {
         return adminUserService.deleteAdminUser(username);
@@ -49,7 +54,7 @@ public class AdminController {
         return movieService.createMovies(createMoviesDto);
     }
 
-    @PutMapping("/update-movie")
+    @PatchMapping ("/update-movie")
     public Movie updateMovie(@RequestBody @Valid UpdateMovieDto updateMovieDto) throws MovieDoesNotExistException {
         return movieService.updateMovie(updateMovieDto);
     }

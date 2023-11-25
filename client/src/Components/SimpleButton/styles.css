@@ -1,0 +1,9 @@
+.simple-button {
+    width: 100px !important;
+    height: 40px !important;
+    border-radius: 10px !important;
+    color: white !important;
+    font-family: "Inter", sans-serif !important;
+    margin-block: 15px !important;
+    background-color: var(--logo-yellow) !important;
+}

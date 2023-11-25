@@ -8,11 +8,15 @@ import com.zahaab.server.exceptions.UserDoesNotExistException;
 import com.zahaab.server.model.AdminUser;
 import com.zahaab.server.repo.AdminUserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -25,6 +29,8 @@ public class AdminUserService {
     private JwtService jwtService;
     @Autowired
     private AuthenticationManager authenticationManager;
+    @Autowired
+    private MongoTemplate mongoTemplate;
 
     public AdminUser getUserByUsername(String username) throws UserDoesNotExistException {
         Optional<AdminUser> user = adminUserRepo.findById(username);
@@ -86,5 +92,12 @@ public class AdminUserService {
 
     public String getUserByToken(String token) {
         return jwtService.extractUsername(token.substring(7));
+    }
+
+    public List<AdminUser> getAllAdminUsers() {
+        Query query = new Query();
+        query.fields().include("username"); // only want username, other info hidden for security
+        query.addCriteria(Criteria.where("username").exists(true));
+        return mongoTemplate.find(query, AdminUser.class);
     }
 }

@@ -1,0 +1,27 @@
+.main-container {
+    margin-block: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login-container {
+    margin-top: 20px;
+    background-color: var(--secondary-bg-color);
+    border: var(--main-border-color) 1px solid;
+    border-radius: 5px;
+    padding-top: 30px;
+    padding-bottom: 50px;
+    width: 700px;
+    max-width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login-heading {
+    color: var(--logo-white);
+    font-size: 70px;
+    margin-top: 30px;
+    margin-bottom: 50px;
+}
