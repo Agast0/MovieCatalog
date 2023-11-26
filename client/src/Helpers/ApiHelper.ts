@@ -10,7 +10,8 @@ const GET_ALL_ADMIN_USERS_URL = `${SERVER_URL}${ADMIN_URL}/all-admin-users`;
 const DELETE_ADMIN_USER_URL = `${SERVER_URL}${ADMIN_URL}/delete-admin-user`;
 const GET_USERNAME_FROM_TOKEN_URL = `${SERVER_URL}${ADMIN_URL}/verify-token`;
 
-const CREATE_MOVIE_URL = `${SERVER_URL}${ADMIN_URL}/create-admin-user`;
+const CREATE_MOVIE_URL = `${SERVER_URL}${ADMIN_URL}/create-movie`;
+const UPDATE_MOVIE_URL = `${SERVER_URL}${ADMIN_URL}/update-movie`;
 const DELETE_MOVIE_URL = `${SERVER_URL}${ADMIN_URL}/delete-movie`;
 const GET_ALL_MOVIES_URL = `${SERVER_URL}${MOVIES_URL}/all`;
 const GET_MOVIE_URL = `${SERVER_URL}${MOVIES_URL}`;
@@ -38,7 +39,7 @@ export const handleCreateMovie = async (name: string, base64Image: string, descr
 }
 
 export const handleUpdateMovie = async (name: string, base64Image: string, description: string, genre: string, rating: number) => {
-    return patch(CREATE_MOVIE_URL, {name, base64Image, description, genre, rating})
+    return patch(UPDATE_MOVIE_URL, {name, base64Image, description, genre, rating})
 }
 
 export const deleteMovie = async (movieName: string) => {

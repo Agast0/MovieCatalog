@@ -6,7 +6,7 @@ import SimpleButton from "../SimpleButton";
 import toast from "react-hot-toast";
 import {handleCreateUser, handleDeleteUser, handleGetAllUsers, login} from "../../Helpers/ApiHelper";
 import {RiDeleteBin5Fill} from "react-icons/ri";
-import {Skeleton} from "@mui/material";
+import {IconButton, Skeleton} from "@mui/material";
 
 const AdminPanelUsersContent = () => {
     const [username, setUsername] = useState('');
@@ -107,7 +107,9 @@ const AdminPanelUsersContent = () => {
                         <div key={user.username} className={`user-item ${index % 2 === 0 ? 'even' : 'odd'}`}>
                             {user.username}
                             {user.username !== 'admin' ? (
-                                <RiDeleteBin5Fill className={'delete-button'} onClick={() => { deleteUser(user.username) }} size={20} />
+                                <IconButton className={'delete-button'} onClick={() => { deleteUser(user.username)}}>
+                                    <RiDeleteBin5Fill className={'delete-icon'} size={20} />
+                                </IconButton>
                             ) : (
                                 <div />
                             )}

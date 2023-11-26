@@ -1,0 +1,21 @@
+.movie-container {
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+    align-items: unset;
+}
+
+.top-bar-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-icon-button {
+    position: absolute;
+    transform: translateX(-38px);
+}
+
+.search-icon {
+    color: var(--logo-white);
+}

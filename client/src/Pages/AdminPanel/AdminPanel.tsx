@@ -3,6 +3,7 @@ import './styles.css';
 import {handleGetUsernameFromToken} from "../../Helpers/ApiHelper";
 import {useNavigate} from "react-router-dom";
 import AdminPanelUsersContent from "../../Components/AdminPanelUsersContent/AdminPanelUsersContent";
+import AdminPanelMoviesContent from "../../Components/AdminPanelMoviesContent/AdminPanelMoviesContent";
 
 const AdminPanel = () => {
     const [selectedTab, setSelectedTab] = useState('Movies');
@@ -46,7 +47,7 @@ const AdminPanel = () => {
                 </div>
             </div>
             <div className={'panel-container'}>
-                {selectedTab === 'Movies' && <div>Movies Content</div>}
+                {selectedTab === 'Movies' && <AdminPanelMoviesContent />}
                 {selectedTab === 'Users' && <AdminPanelUsersContent />}
             </div>
         </div>

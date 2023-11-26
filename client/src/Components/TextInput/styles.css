@@ -1,5 +1,6 @@
 /* styles.css */
 
+textarea,
 input {
     border-radius: 5px;
     outline: none;
@@ -9,10 +10,22 @@ input {
     width: 250px;
     height: 25px;
     color: var(--logo-white);
+    font-family: "Inter", sans-serif;
 }
 
+textarea:focus::placeholder,
 input:focus::placeholder {
     color: var(--logo-yellow); /* Change placeholder text color to var(--logo-blue) on focus */
+}
+
+textarea.wide,
+input.wide {
+    width: 400px;
+}
+
+textarea.tall,
+input.tall {
+    height: 100px;
 }
 
 .password-toggle-button {
