@@ -2,8 +2,8 @@ import React, {useEffect, useState} from 'react';
 import './styles.css';
 import {handleGetUsernameFromToken} from "../../Helpers/ApiHelper";
 import {useNavigate} from "react-router-dom";
-import AdminPanelUsersContent from "../../Components/AdminPanelUsersContent/AdminPanelUsersContent";
-import AdminPanelMoviesContent from "../../Components/AdminPanelMoviesContent/AdminPanelMoviesContent";
+import AdminPanelUsersContent from "../../Components/AdminPanelUsersContent";
+import AdminPanelMoviesContent from "../../Components/AdminPanelMoviesContent";
 
 const AdminPanel = () => {
     const [selectedTab, setSelectedTab] = useState('Movies');

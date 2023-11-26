@@ -1,0 +1,39 @@
+.post-container {
+    background-color: var(--light-accent);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid var(--main-border-color);
+}
+
+.post-container.odd {
+    background-color: var(--main-bg-color);
+}
+
+.image-name {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image {
+    padding-block: 15px;
+    margin-left: 15px;
+    max-width: 130px;
+}
+
+.name {
+    margin-left: 20px;
+}
+
+.icon-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 20px;
+}
+
+.icon {
+    color: var(--logo-white);
+    margin-left: 10px;
+}

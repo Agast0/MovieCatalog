@@ -3,7 +3,7 @@ import './styles.css';
 import { IconButton } from '@mui/material';
 import { AiFillEyeInvisible, AiFillEye } from 'react-icons/ai';
 
-const TextInput = ({ placeholder, onChange, toggleVisible, isWide, isTall, value, ...rest }: any) => {
+const TextInput = ({ placeholder, onChange, toggleVisible, isWide, isTall, ...rest }: any) => {
     const [showPassword, setShowPassword] = useState(false);
 
     const togglePasswordVisibility = () => {
@@ -19,7 +19,6 @@ const TextInput = ({ placeholder, onChange, toggleVisible, isWide, isTall, value
                     placeholder={placeholder}
                     onChange={onChange}
                     className={inputClassName}
-                    value={value}
                     {...rest}
                 />
             ) : (
@@ -28,7 +27,6 @@ const TextInput = ({ placeholder, onChange, toggleVisible, isWide, isTall, value
                     placeholder={placeholder}
                     onChange={onChange}
                     className={inputClassName}
-                    value={value}
                     {...rest}
                 />
             )}

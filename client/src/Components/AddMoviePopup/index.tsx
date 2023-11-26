@@ -6,10 +6,14 @@ import SimpleButton from '../SimpleButton';
 import TextInput from '../TextInput';
 import { Rating } from '@mui/material';
 import toast from "react-hot-toast";
-import {handleCreateMovie} from "../../Helpers/ApiHelper";
+import {handleCreateMovie, handleUpdateMovie} from "../../Helpers/ApiHelper";
 import {useNavigate} from "react-router-dom";
 
-const AddMoviePopup = ({ isPopupOpen, setPopupOpen, isEditing, movieNameProp, imageProp, descriptionProp, genreProp, ratingProp, ...rest }: any) => {
+const AddMoviePopup = ({
+                           getMovies, isPopupOpen, setPopupOpen, isEditing,
+                           movieNameProp, imageProp, descriptionProp,
+                           genreProp, ratingProp, ...rest
+                       }: any) => {
     const [movieName, setMovieName] = useState('');
     const [movieDesc, setMovieDesc] = useState('');
     const [rating, setRating] = useState(4.9);
@@ -57,18 +61,25 @@ const AddMoviePopup = ({ isPopupOpen, setPopupOpen, isEditing, movieNameProp, im
             return
         }
 
-        const loadingToast = toast.loading('Adding Movie...');
-        let res = await handleCreateMovie(movieName, imageBase64, movieDesc, genre, rating)
+        let res: any;
+
+        const loadingToast = toast.loading(`${isEditing ? 'Updating Movie...' : 'Adding Movie...'}`);
+        if (isEditing) {
+            res = await handleUpdateMovie(movieName, imageBase64, movieDesc, genre, rating)
+        } else {
+            res = await handleCreateMovie(movieName, imageBase64, movieDesc, genre, rating)
+        }
 
         toast.remove(loadingToast);
         if (res.status === 200) {
-            toast.success("Movie created successfully!")
+            toast.success(`${isEditing ? 'Movie updated successfully!' : 'Movie created successfully!'}`)
             setMovieName('')
             setMovieDesc('')
             setGenre('')
             setRating(5.0)
             setImageBase64('')
             if (formRef && formRef.current) formRef.current.reset();
+            getMovies()
             setPopupOpen(false)
         } else if (res.status === 403) {
             toast.error("Please log in!")
@@ -150,6 +161,7 @@ const AddMoviePopup = ({ isPopupOpen, setPopupOpen, isEditing, movieNameProp, im
                                     setMovieName(e.target.value)
                                 }
                                 style={{ marginTop: '5px', marginBottom: '15px' }}
+                                readOnly={isEditing}
                             />
 
                             Enter Movie Description:
@@ -199,7 +211,7 @@ const AddMoviePopup = ({ isPopupOpen, setPopupOpen, isEditing, movieNameProp, im
                         </div>
                     </div>
                     <div className={'enter-button'}>
-                        <SimpleButton label={'Add Movie'} isWide isBold onClick={handleAddMovie} />
+                        <SimpleButton label={`${isEditing ? 'Update Movie' : 'Add Movie'}`} isWide isBold onClick={handleAddMovie} />
                     </div>
                 </div>
             </Sheet>
