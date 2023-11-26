@@ -1,0 +1,41 @@
+.user-container {
+    display: flex;
+    flex-direction: column;
+    align-items: unset;
+    width: 95%;
+}
+
+.create-new-admin {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.users-display-container {
+    margin-top: 30px;
+}
+
+.user-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    background-color: var(--light-accent);
+    border: 1px solid var(--main-border-color);
+    font-size: 16px;
+}
+
+.user-item.odd {
+    background-color: var(--main-bg-color);
+}
+
+.skeleton {
+    transform: unset !important;
+    -webkit-transition: unset !important;
+    margin-block: 10px !important;
+}
+
+.delete-button {
+    cursor: pointer;
+}

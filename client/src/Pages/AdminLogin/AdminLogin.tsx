@@ -22,6 +22,7 @@ const AdminLogin = () => {
             return;
         }
 
+        localStorage.removeItem("authToken")
         const loadingToast = toast.loading('Logging in...');
         let res = await login(username, password)
 
@@ -38,10 +39,10 @@ const AdminLogin = () => {
         <div className='main-container'>
             <div className="login-container">
                 <h1 className={'login-heading'}>Login</h1>
-                <TextInput placeholder={"Username"}
+                <TextInput placeholder={"Username"} style={{marginBottom: 10}}
                            onChange={(e: { target: { value: React.SetStateAction<string>; }; }) => setUsername(e.target.value)}
                 />
-                <TextInput placeholder={"Password"} toggleVisible style={{marginTop: 10}}
+                <TextInput placeholder={"Password"} toggleVisible
                            onChange={(e: { target: { value: React.SetStateAction<string>; }; }) => setPassword(e.target.value)}
                 />
                 <SimpleButton label={"Login"} onClick={handleLoginClick} />

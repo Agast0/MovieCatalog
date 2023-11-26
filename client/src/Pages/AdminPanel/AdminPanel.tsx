@@ -1,8 +1,29 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import './styles.css';
+import {handleGetUsernameFromToken} from "../../Helpers/ApiHelper";
+import {useNavigate} from "react-router-dom";
+import AdminPanelUsersContent from "../../Components/AdminPanelUsersContent/AdminPanelUsersContent";
 
 const AdminPanel = () => {
     const [selectedTab, setSelectedTab] = useState('Movies');
+    const [username, setUsername] = useState('');
+    let navigate = useNavigate();
+
+    useEffect(() => {
+        let verifyAuthToken = async () => {
+            let res = await handleGetUsernameFromToken()
+
+            if (res.status === 403) {
+                navigate('/admin-login')
+            } else if (res.status === 200) {
+                setUsername(res.data)
+            } else {
+                console.log(`An error occurred: ${res}`)
+            }
+        }
+
+        verifyAuthToken();
+    }, [])
 
     const handleTabClick = (tab: string) => {
         setSelectedTab(tab);
@@ -26,7 +47,7 @@ const AdminPanel = () => {
             </div>
             <div className={'panel-container'}>
                 {selectedTab === 'Movies' && <div>Movies Content</div>}
-                {selectedTab === 'Users' && <div>Users Content</div>}
+                {selectedTab === 'Users' && <AdminPanelUsersContent />}
             </div>
         </div>
     );

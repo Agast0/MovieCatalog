@@ -1,9 +1,11 @@
 import React from 'react';
 import { ButtonBase } from '@mui/material';
 import "./styles.css"
-const SimpleButton = ({ onClick, label, ...rest }: any) => {
+const SimpleButton = ({ onClick, label, isWide, isBold, ...rest }: any) => {
+    const buttonClass = `simple-button ${isBold ? 'bold-text' : ''} ${isWide ? 'wide' : ''}`;
+
     return (
-        <ButtonBase className={`simple-button`} onClick={onClick} {...rest}>
+        <ButtonBase className={buttonClass} onClick={onClick} {...rest}>
             {label}
         </ButtonBase>
     );

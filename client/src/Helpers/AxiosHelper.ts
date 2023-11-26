@@ -2,7 +2,6 @@ import axios from "axios";
 
 export const post = async (requestUrl: string, requestData: Object) => {
     try {
-        console.log(requestData)
         return await axios.post(requestUrl, requestData, makeConfig());
     } catch (error: any) {
         return error.response ; // You can choose to handle or propagate the error as needed.

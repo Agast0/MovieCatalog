@@ -7,3 +7,11 @@
     margin-block: 15px !important;
     background-color: var(--logo-yellow) !important;
 }
+
+.simple-button.bold-text {
+    font-weight: bold;
+}
+
+.simple-button.wide {
+    width: 200px !important;
+}
