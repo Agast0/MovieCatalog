@@ -1,0 +1,39 @@
+.popup-content-movie {
+    color: var(--logo-white);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    justify-content: space-evenly;
+}
+
+.popup-movie-name {
+    color: var(--logo-yellow);
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.popup-middle-container {
+    margin-top: 12px;
+    width: 100%;
+    display: flex;
+}
+
+.popup-image {
+    width: 280px;
+}
+
+.popup-description {
+    display: flex;
+    margin-inline: 40px;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-bottom-container {
+    margin-top: 30px;
+    width: 50%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

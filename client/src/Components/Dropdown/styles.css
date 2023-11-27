@@ -1,0 +1,13 @@
+.dropdown-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dropdown {
+    margin-left: 10px;
+    height: 46px;
+    width: 120px;
+    margin-bottom: 3px;
+    text-align: center;
+}

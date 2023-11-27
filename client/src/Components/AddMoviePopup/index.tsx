@@ -8,6 +8,7 @@ import { Rating } from '@mui/material';
 import toast from "react-hot-toast";
 import {handleCreateMovie, handleUpdateMovie} from "../../Helpers/ApiHelper";
 import {useNavigate} from "react-router-dom";
+import Dropdown from "../Dropdown";
 
 const AddMoviePopup = ({
                            getMovies, isPopupOpen, setPopupOpen, isEditing,
@@ -191,21 +192,9 @@ const AddMoviePopup = ({
                                 </div>
                                 <div className={'genre'}>
                                     Genre:
-                                    <div className="genre-dropdown-container">
-                                        <select id="genreDropdown" value={genre} onChange={handleGenreChange}>
-                                            <option value="">Select Genre</option>
-                                            <option value="Action">Action</option>
-                                            <option value="Drama">Drama</option>
-                                            <option value="Comedy">Comedy</option>
-                                            <option value="Sci-Fi">Sci-Fi</option>
-                                            <option value="Thriller">Thriller</option>
-                                            <option value="Romance">Romance</option>
-                                            <option value="Horror">Horror</option>
-                                            <option value="Fantasy">Fantasy</option>
-                                            <option value="Mystery">Mystery</option>
-                                            <option value="Documentary">Documentary</option>
-                                        </select>
-                                    </div>
+                                    <Dropdown value={genre} onChange={handleGenreChange}
+                                              style={{width: 'auto', height: 'auto', textAlign: 'left', marginLeft: '0'}}
+                                              isGenre />
                                 </div>
                             </div>
                         </div>

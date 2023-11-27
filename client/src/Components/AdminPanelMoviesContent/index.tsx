@@ -70,7 +70,6 @@ const AdminPanelMoviesContent = () => {
                     isWide
                     onChange={(e: { target: { value: React.SetStateAction<string>; }; }) => setSearchQuery(e.target.value)}
                     onKeyPress={handleKeyPress}
-                    value={searchQuery}
                 />
                 <IconButton onClick={handleSearch} className={'search-icon-button'}>
                     <FaSearch className={'search-icon'} size={15} />
