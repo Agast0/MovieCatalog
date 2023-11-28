@@ -81,10 +81,10 @@ const Movies = () => {
                 <div className={'movies-container-main'}>
                     {isLoading ? (
                         <div className={'skeleton-container'}>
-                            <Skeleton height={200} width={150}/>
-                            <Skeleton height={200} width={150}/>
-                            <Skeleton height={200} width={150}/>
-                            <Skeleton height={200} width={150}/>
+                            <Skeleton height={200} width={150} style={{marginRight: '40px'}} />
+                            <Skeleton height={200} width={150} style={{marginRight: '40px'}} />
+                            <Skeleton height={200} width={150} style={{marginRight: '40px'}} />
+                            <Skeleton height={200} width={150} style={{marginRight: '40px'}} />
                         </div>
                     ) : (
                         movies.length === 0 ? (

@@ -11,6 +11,7 @@
     color: var(--logo-yellow);
     font-size: 30px;
     font-weight: bold;
+    text-align: center;
 }
 
 .popup-middle-container {
@@ -30,10 +31,17 @@
     align-items: center;
 }
 
-.popup-bottom-container {
-    margin-top: 30px;
-    width: 50%;
+.popup-content-container {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-content-top-container {
+    padding-bottom: 40px;
+    width: 95%;
+    display: flex;
+    justify-content: space-evenly;
     align-items: center;
 }

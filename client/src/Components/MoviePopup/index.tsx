@@ -44,19 +44,22 @@ const MoviePopup = ({movie, isOpen, setOpen}: any) => {
                             src={movie.base64Image}
                             alt="Movie poster"
                         />
-                        <div className={'popup-description'}>
-                            {movie.description}
-                        </div>
-                    </div>
-                    <div className={'popup-bottom-container'}>
-                        <Rating
-                            name="movie-rating"
-                            value={movie.rating}
-                            precision={0.1}
-                            size={'large'}
-                        />
-                        <div className={'popup-genre'}>
-                            {movie.genre}
+                        <div className={'popup-content-container'}>
+                            <div className={'popup-content-top-container'}>
+                                <div className={'popup-genre'}>
+                                    {movie.genre}
+                                </div>
+                                <Rating
+                                    name="movie-rating"
+                                    value={movie.rating}
+                                    precision={0.1}
+                                    size={'large'}
+                                    readOnly
+                                />
+                            </div>
+                            <div className={'popup-description'}>
+                                {movie.description}
+                            </div>
                         </div>
                     </div>
                 </div>

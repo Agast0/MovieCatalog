@@ -20,11 +20,14 @@
     display: flex;
     align-items: center; /* Adjust alignment to center the image */
     justify-content: center;
+    max-height: 400px !important;
 }
 
 .image {
     width: 180px !important;
+    height: 250px !important; /* Set a fixed height for all images */
     max-width: 180px !important;
+    object-fit: cover; /* Maintain aspect ratio and cover the entire container */
 }
 
 .movie-title {
@@ -34,4 +37,5 @@
     align-items: center;
     justify-content: center;
     margin-bottom: 12px;
+    text-align: center;
 }

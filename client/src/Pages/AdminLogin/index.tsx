@@ -31,7 +31,7 @@ const AdminLogin = () => {
             localStorage.setItem("authToken", res.data)
             navigate('/admin')
         } else {
-            toast.error("An error occurred! Please try again.")
+            toast.error("Invalid Credentials! Please try again.")
         }
     };
 
