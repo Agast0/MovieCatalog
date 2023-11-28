@@ -14,10 +14,6 @@ Welcome to the Movie Catalog Backend! This Spring Boot application serves as the
 
 - **Validation:** Input validation is applied to ensure that only valid and properly formatted data is accepted by the backend.
 
-## Getting Started
-
-Follow the steps below to set up and run the Movie Catalog Backend:
-
 ### Prerequisites
 
 1. **Java Development Kit (JDK):** Make sure you have JDK installed on your machine. You can download it from [Oracle](https://www.oracle.com/java/technologies/javase-downloads.html) or use [OpenJDK](https://openjdk.java.net/).
