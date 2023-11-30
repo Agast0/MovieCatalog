@@ -1,5 +1,7 @@
 package com.zahaab.server.service;
 
+import com.zahaab.server.common.enums.Genre;
+import com.zahaab.server.common.enums.SortType;
 import com.zahaab.server.dto.CreateMovieDto;
 import com.zahaab.server.dto.CreateMoviesDto;
 import com.zahaab.server.dto.UpdateMovieDto;
@@ -10,7 +12,6 @@ import com.zahaab.server.exceptions.SortTypeDoesNotExistException;
 import com.zahaab.server.model.Movie;
 import com.zahaab.server.repo.MovieRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -35,7 +36,7 @@ public class MovieService {
         return movie.get();
     }
 
-    public Movie createMovieHelper(CreateMovieDto createMovieDto) throws MovieAlreadyExistsException {
+    private Movie createMovieHelper(CreateMovieDto createMovieDto) throws MovieAlreadyExistsException {
         Movie toBeAdded = new Movie(
                 createMovieDto.getName(),
                 createMovieDto.getBase64Image(),
@@ -67,63 +68,15 @@ public class MovieService {
 
         // Apply genre filters
         if (genre != null) {
-            switch (genre.toLowerCase()) {
-                case "action":
-                    query.addCriteria(Criteria.where("genre").is("Action"));
-                    break;
-                case "drama":
-                    query.addCriteria(Criteria.where("genre").is("Drama"));
-                    break;
-                case "comedy":
-                    query.addCriteria(Criteria.where("genre").is("Comedy"));
-                    break;
-                case "sci-fi":
-                    query.addCriteria(Criteria.where("genre").is("Sci-Fi"));
-                    break;
-                case "thriller":
-                    query.addCriteria(Criteria.where("genre").is("Thriller"));
-                    break;
-                case "romance":
-                    query.addCriteria(Criteria.where("genre").is("Romance"));
-                    break;
-                case "horror":
-                    query.addCriteria(Criteria.where("genre").is("Horror"));
-                    break;
-                case "fantasy":
-                    query.addCriteria(Criteria.where("genre").is("Fantasy"));
-                    break;
-                case "mystery":
-                    query.addCriteria(Criteria.where("genre").is("Mystery"));
-                    break;
-                case "documentary":
-                    query.addCriteria(Criteria.where("genre").is("Documentary"));
-                    break;
-                default:
-                    throw new GenreDoesNotExistException("Genre does not exist");
-            }
+            Genre genreFilter = Genre.getByDisplayName(genre);
+            query.addCriteria(Criteria.where("genre").is(genreFilter.getDisplayName()));
         }
-
 
         // Apply sort
         if (sort != null) {
-            switch (sort) {
-                case "alphabet-asc":
-                    query.with(Sort.by(Sort.Direction.ASC, "name"));
-                    break;
-                case "alphabet-desc":
-                    query.with(Sort.by(Sort.Direction.DESC, "name"));
-                    break;
-                case "rating-asc":
-                    query.with(Sort.by(Sort.Direction.ASC, "rating"));
-                    break;
-                case "rating-desc":
-                    query.with(Sort.by(Sort.Direction.DESC, "rating"));
-                    break;
-                default:
-                    throw new SortTypeDoesNotExistException("Sort type does not exist");
-            }
+            SortType sortType = SortType.getByDisplayName(sort);
+            query.with(sortType.getSort());
         }
-
 
         return mongoTemplate.find(query, Movie.class);
     }
