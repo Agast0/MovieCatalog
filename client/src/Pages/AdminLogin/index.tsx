@@ -27,11 +27,17 @@ const AdminLogin = () => {
         let res = await login(username, password)
 
         toast.remove(loadingToast);
-        if (res.status === 200) {
-            localStorage.setItem("authToken", res.data)
+        if (res.status === 200 && res.data) {
+            localStorage.setItem("authToken", res.data.authToken)
             navigate('/admin')
+        } else if (res.status === 403) {
+            toast.error('Invalid credentials!');
+        } else if (res.status === 400) {
+            Object.keys(res.data).forEach((key) => {
+                toast.error(res.data[key]);
+            });
         } else {
-            toast.error("Invalid Credentials! Please try again.")
+            console.log(`An error occurred: ${res}`)
         }
     };
 

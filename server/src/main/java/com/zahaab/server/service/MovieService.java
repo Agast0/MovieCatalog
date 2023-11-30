@@ -81,15 +81,16 @@ public class MovieService {
         return mongoTemplate.find(query, Movie.class);
     }
 
-    public Movie updateMovie(UpdateMovieDto updateMovieDto) throws MovieDoesNotExistException {
+    public String updateMovie(UpdateMovieDto updateMovieDto) throws MovieDoesNotExistException {
         Movie toBeUpdated = getMovieByName(updateMovieDto.getName());
 
         toBeUpdated.setBase64Image(updateMovieDto.getBase64Image());
         toBeUpdated.setDescription(updateMovieDto.getDescription());
         toBeUpdated.setGenre(updateMovieDto.getGenre());
         toBeUpdated.setRating(updateMovieDto.getRating());
+        movieRepo.save(toBeUpdated);
 
-        return movieRepo.save(toBeUpdated);
+        return "Movie updated successfully!";
     }
 
     public String deleteMovie(String name) throws MovieDoesNotExistException {

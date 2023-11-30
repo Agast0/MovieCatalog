@@ -24,14 +24,18 @@ const AdminPanelUsersContent = () => {
         let res = await handleDeleteUser(username)
 
         toast.remove(loadingToast)
-        if (res.status === 200) {
-            toast.success('User Deleted Successfully')
+        if (res.status === 200 && res.data) {
+            toast.success(res.data.message)
             handleGetUsers();
         } else if (res.status === 403) {
             toast.error("Please log in!")
             navigate('/admin-login')
+        } else if (res.status === 400) {
+            Object.keys(res.data).forEach((key) => {
+                toast.error(res.data[key]);
+            });
         } else {
-            toast.error('An error occurred! Please try again later.')
+            console.log(`An error occurred: ${res}`)
         }
     }
 
@@ -46,7 +50,7 @@ const AdminPanelUsersContent = () => {
                 toast.error("Please log in!");
                 navigate('/admin-login');
             } else {
-                toast.error('An error occurred getting users, please try again.');
+                console.log(`An error occurred: ${res}`)
             }
         } finally {
             setLoadingUsers(false);
@@ -69,21 +73,17 @@ const AdminPanelUsersContent = () => {
         handleGetUsers();
 
         toast.remove(loadingToast);
-        if (res.status === 200) {
-            toast.success("New user created successfully!")
+        if (res.status === 201 && res.data) {
+            toast.success(res.data.message)
         } else if (res.status === 403) {
             toast.error("Please log in!")
             navigate('/admin-login')
         } else if (res.status === 400) {
-            if (typeof res.data === 'object') {
-                Object.keys(res.data).forEach((key) => {
-                    toast.error(res.data[key]);
-                });
-            } else if (typeof res.data === 'string') {
-                toast.error(res.data);
-            }
+            Object.keys(res.data).forEach((key) => {
+                toast.error(res.data[key]);
+            });
         } else {
-            toast.error("An error occurred! Please try again.")
+            console.log(`An error occurred: ${res}`)
         }
     }
 

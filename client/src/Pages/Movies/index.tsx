@@ -8,6 +8,7 @@ import {getAllMovies} from "../../Helpers/ApiHelper";
 import toast from "react-hot-toast";
 import Movie from "../../Components/Movie";
 import SimpleButton from "../../Components/SimpleButton";
+import {useNavigate} from "react-router-dom";
 
 const Movies = () => {
     const [searchQuery, setSearchQuery] = useState('');
@@ -15,6 +16,7 @@ const Movies = () => {
     const [sortFilter, setSortFilter] = useState('');
     const [isLoading, setIsLoading] = useState(true);
     const [movies, setMovies] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         handleGetMovies()
@@ -45,9 +47,15 @@ const Movies = () => {
 
         if (res.status === 200) {
             setMovies(res.data)
-            console.log(res.data)
+        } else if (res.status === 403) {
+            toast.error("Please log in!")
+            navigate('/admin-login')
         } else if (res.status === 400) {
-            toast(res.data)
+            Object.keys(res.data).forEach((key) => {
+                toast.error(res.data[key]);
+            });
+        } else {
+            console.log(`An error occurred: ${res}`)
         }
 
         setIsLoading(false)

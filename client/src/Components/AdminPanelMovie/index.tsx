@@ -5,19 +5,28 @@ import {MdOutlineEdit} from "react-icons/md";
 import {RiDeleteBin5Fill} from "react-icons/ri";
 import toast from "react-hot-toast";
 import {deleteMovie} from "../../Helpers/ApiHelper";
+import {useNavigate} from "react-router-dom";
 
 const AdminPanelMovie = ({getMovies, onEditPress, name, image, rating, isOdd, ...rest}: any) => {
+    const navigate = useNavigate();
 
     const handleDeletePress = async () => {
         const loadingToast = toast.loading('Deleting Movie...');
         let res = await deleteMovie(name);
 
         toast.remove(loadingToast);
-        if (res.status === 200) {
-            toast.success('Movie Deleted Successfully!')
+        if (res.status === 200 && res.data) {
+            toast.success(res.data.message)
             getMovies()
+        } else if (res.status === 403) {
+            toast.error("Please log in!")
+            navigate('/admin-login')
+        } else if (res.status === 400) {
+            Object.keys(res.data).forEach((key) => {
+                toast.error(res.data[key]);
+            });
         } else {
-            toast.error('Something went wrong, try again!')
+            console.log(`An error occurred: ${res}`)
         }
     }
 

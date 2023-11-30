@@ -8,6 +8,7 @@ import toast from "react-hot-toast";
 import AddMoviePopup from "../AddMoviePopup";
 import {getAllMovies} from "../../Helpers/ApiHelper";
 import AdminPanelMovie from "../AdminPanelMovie";
+import {useNavigate} from "react-router-dom";
 
 const AdminPanelMoviesContent = () => {
     const [searchQuery, setSearchQuery] = useState('');
@@ -18,6 +19,7 @@ const AdminPanelMoviesContent = () => {
         name: '', base64Image: '', description: '', genre: '', rating: 5.0
     })
     const [isLoading, setIsLoading] = useState(true);
+    const navigate = useNavigate();
 
     useEffect(() => {
         getMovies()
@@ -38,8 +40,15 @@ const AdminPanelMoviesContent = () => {
 
         if (res.status === 200) {
             setMovies(res.data)
+        } else if (res.status === 403) {
+            toast.error("Please log in!")
+            navigate('/admin-login')
         } else if (res.status === 400) {
-            toast(res.data)
+            Object.keys(res.data).forEach((key) => {
+                toast.error(res.data[key]);
+            });
+        } else {
+            console.log(`An error occurred: ${res}`)
         }
 
         setIsLoading(false)

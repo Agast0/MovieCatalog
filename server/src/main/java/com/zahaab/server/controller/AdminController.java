@@ -64,8 +64,9 @@ public class AdminController {
     }
 
     @PatchMapping ("/update-movie")
-    public Movie updateMovie(@RequestBody @Valid UpdateMovieDto updateMovieDto) throws MovieDoesNotExistException {
-        return movieService.updateMovie(updateMovieDto);
+    public ApiResponse updateMovie(@RequestBody @Valid UpdateMovieDto updateMovieDto) throws MovieDoesNotExistException {
+        String result = movieService.updateMovie(updateMovieDto);
+        return new ApiResponse(result);
     }
 
     @DeleteMapping("/delete-movie")

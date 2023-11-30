@@ -17,7 +17,7 @@ const AdminPanel = () => {
             if (res.status === 403) {
                 navigate('/admin-login')
             } else if (res.status === 200) {
-                setUsername(res.data)
+                setUsername(res.data.message)
             } else {
                 console.log(`An error occurred: ${res}`)
             }

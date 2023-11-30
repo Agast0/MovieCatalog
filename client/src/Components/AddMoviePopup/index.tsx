@@ -51,6 +51,15 @@ const AddMoviePopup = ({
         setGenre(e.target.value);
     };
 
+    const resetStates = () => {
+        setMovieName('')
+        setMovieDesc('')
+        setGenre('')
+        setRating(5.0)
+        setImageBase64('')
+        if (formRef && formRef.current) formRef.current.reset();
+    }
+
     const handleAddMovie = async () => {
         if (!imageBase64) {
             toast.error('Please upload an image!')
@@ -72,29 +81,25 @@ const AddMoviePopup = ({
         }
 
         toast.remove(loadingToast);
-        if (res.status === 200) {
-            toast.success(`${isEditing ? 'Movie updated successfully!' : 'Movie created successfully!'}`)
-            setMovieName('')
-            setMovieDesc('')
-            setGenre('')
-            setRating(5.0)
-            setImageBase64('')
-            if (formRef && formRef.current) formRef.current.reset();
+        if (res.status === 201 && res.data) {
+            toast.success(res.data.message)
+            resetStates()
+            getMovies()
+            setPopupOpen(false)
+        } else if (res.status === 200 && res.data) {
+            toast.success(res.data.message)
+            resetStates()
             getMovies()
             setPopupOpen(false)
         } else if (res.status === 403) {
             toast.error("Please log in!")
             navigate('/admin-login')
         } else if (res.status === 400) {
-            if (typeof res.data === 'object') {
-                Object.keys(res.data).forEach((key) => {
-                    toast.error(res.data[key]);
-                });
-            } else if (typeof res.data === 'string') {
-                toast.error(res.data);
-            }
+            Object.keys(res.data).forEach((key) => {
+                toast.error(res.data[key]);
+            });
         } else {
-            toast.error("An error occurred! Please try again.")
+            console.log(`An error occurred: ${res}`)
         }
     };
 
