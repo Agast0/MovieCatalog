@@ -1,9 +1,6 @@
 package com.zahaab.server.dto;
 
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 
 public class CreateMovieDto {
     @NotEmpty(message = "Name cannot be empty")
@@ -14,7 +11,7 @@ public class CreateMovieDto {
     private String description;
     @NotEmpty(message = "Genre cannot be empty")
     private String genre;
-    @NotNull(message = "Rating cannot be empty")
+    @NotNull(message = "Rating cannot be null")
     @Max(value = 5, message = "Rating cannot be more than 5.0")
     @Min(value = 0, message = "Rating cannot be less than 0.0")
     private double rating;

@@ -55,7 +55,7 @@ public class AdminUserService {
             adminUserRepo.save(newUser);
         }
 
-        return "User created succesfully!";
+        return "User created successfully!";
     }
 
     public String deleteAdminUser(String username) throws CannotDeleteDefaultAdminUserException, UserDoesNotExistException {

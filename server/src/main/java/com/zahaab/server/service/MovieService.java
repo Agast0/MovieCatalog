@@ -35,7 +35,7 @@ public class MovieService {
         return movie.get();
     }
 
-    public Movie createMovie(CreateMovieDto createMovieDto) throws MovieAlreadyExistsException {
+    public Movie createMovieHelper(CreateMovieDto createMovieDto) throws MovieAlreadyExistsException {
         Movie toBeAdded = new Movie(
                 createMovieDto.getName(),
                 createMovieDto.getBase64Image(),
@@ -45,10 +45,14 @@ public class MovieService {
         );
 
         boolean doesMovieAlreadyExist = movieRepo.existsById(toBeAdded.getName());
-
         if (doesMovieAlreadyExist) throw new MovieAlreadyExistsException("Movie already exists");
 
         return movieRepo.save(toBeAdded);
+    }
+
+    public String createMovie(CreateMovieDto createMovieDto) throws MovieAlreadyExistsException {
+        createMovieHelper(createMovieDto);
+        return "Movie created successfully!";
     }
 
     public List<Movie> getAllMovies(String sort, String genre, String search) throws SortTypeDoesNotExistException, GenreDoesNotExistException {
@@ -141,13 +145,13 @@ public class MovieService {
         return "Movie deleted successfully!";
     }
 
-    public List<Movie> createMovies(CreateMoviesDto createMoviesDto) throws MovieAlreadyExistsException {
+    public String createMovies(CreateMoviesDto createMoviesDto) throws MovieAlreadyExistsException {
         List<Movie> createdMovies = new ArrayList<Movie>();
 
         for (CreateMovieDto movie: createMoviesDto.getMovies()) {
-            createdMovies.add(createMovie(movie));
+            createdMovies.add(createMovieHelper(movie));
         }
 
-        return createdMovies;
+        return "Movies created successfully!";
     }
 }
