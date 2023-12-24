@@ -6,6 +6,8 @@ import com.zahaab.server.exceptions.SortTypeDoesNotExistException;
 import com.zahaab.server.model.Movie;
 import com.zahaab.server.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,16 +19,18 @@ public class MovieController {
     @Autowired
     MovieService movieService;
     @GetMapping("/all")
-    public List<Movie> getAllMovies(
+    public ResponseEntity<List<Movie>> getAllMovies(
             @RequestParam(value = "sort", required = false) String sort,
             @RequestParam(value = "genre", required = false) String genre,
             @RequestParam(value = "search", required = false) String search
     ) throws SortTypeDoesNotExistException, GenreDoesNotExistException {
-        return movieService.getAllMovies(sort, genre, search);
+        List<Movie> result = movieService.getAllMovies(sort, genre, search);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
     @GetMapping
-    public Movie getMovie(@RequestParam("movieName") String name) throws MovieDoesNotExistException {
-        return movieService.getMovieByName(name);
+    public ResponseEntity<Movie> getMovie(@RequestParam("movieName") String name) throws MovieDoesNotExistException {
+        Movie result = movieService.getMovieByName(name);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 }

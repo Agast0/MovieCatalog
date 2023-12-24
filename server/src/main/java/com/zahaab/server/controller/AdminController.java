@@ -7,7 +7,6 @@ import com.zahaab.server.dto.CreateMoviesDto;
 import com.zahaab.server.dto.UpdateMovieDto;
 import com.zahaab.server.exceptions.*;
 import com.zahaab.server.model.AdminUser;
-import com.zahaab.server.model.Movie;
 import com.zahaab.server.service.AdminUserService;
 import com.zahaab.server.service.MovieService;
 import jakarta.validation.Valid;
@@ -29,9 +28,9 @@ public class AdminController {
     private MovieService movieService;
 
     @GetMapping("/verify-token")
-    public ApiResponse getUsernameFromToken(@RequestHeader("Authorization") String token) {
+    public ResponseEntity<ApiResponse> getUsernameFromToken(@RequestHeader("Authorization") String token) {
         String result = adminUserService.getUserByToken(token);
-        return new ApiResponse(result);
+        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse(result));
     }
 
     @PostMapping("/create-admin-user")
@@ -41,14 +40,15 @@ public class AdminController {
     }
 
     @GetMapping("/all-admin-users")
-    public List<AdminUser> getAllAdminUsers() {
-        return adminUserService.getAllAdminUsers();
+    public ResponseEntity<List<AdminUser>> getAllAdminUsers() {
+        List<AdminUser> result = adminUserService.getAllAdminUsers();
+        return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
     @DeleteMapping("/delete-admin-user")
-    public ApiResponse deleteAdminUser(@RequestParam(value = "username") String username) throws CannotDeleteDefaultAdminUserException, UserDoesNotExistException {
+    public ResponseEntity<ApiResponse> deleteAdminUser(@RequestParam(value = "username") String username) throws CannotDeleteDefaultAdminUserException, UserDoesNotExistException {
         String result = adminUserService.deleteAdminUser(username);
-        return new ApiResponse(result);
+        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse(result));
     }
 
     @PostMapping("/create-movie")
@@ -58,21 +58,21 @@ public class AdminController {
     }
 
     @PostMapping("/create-movies")
-    public ResponseEntity<String> createMovies(@RequestBody @Valid CreateMoviesDto createMoviesDto) throws MovieAlreadyExistsException {
+    public ResponseEntity<ApiResponse> createMovies(@RequestBody @Valid CreateMoviesDto createMoviesDto) throws MovieAlreadyExistsException {
         String result = movieService.createMovies(createMoviesDto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(result);
+        return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponse(result));
     }
 
     @PatchMapping ("/update-movie")
-    public ApiResponse updateMovie(@RequestBody @Valid UpdateMovieDto updateMovieDto) throws MovieDoesNotExistException {
+    public ResponseEntity<ApiResponse> updateMovie(@RequestBody @Valid UpdateMovieDto updateMovieDto) throws MovieDoesNotExistException {
         String result = movieService.updateMovie(updateMovieDto);
-        return new ApiResponse(result);
+        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse(result));
     }
 
     @DeleteMapping("/delete-movie")
-    public ApiResponse deleteMovie(@RequestParam("movieName") String name) throws MovieDoesNotExistException {
+    public ResponseEntity<ApiResponse> deleteMovie(@RequestParam("movieName") String name) throws MovieDoesNotExistException {
         String result = movieService.deleteMovie(name);
-        return new ApiResponse(result);
+        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse(result));
     }
 
 }
